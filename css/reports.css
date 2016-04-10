@@ -1,0 +1,234 @@
+﻿@charset "utf-8";
+@import url("reset-min3.css");
+@media screen{
+	body{
+		font:0.70em/1.6em Tahoma,Sans-Serif;
+		color:#333;
+		margin:0;
+		padding:0;
+		background:#252525 url(../images/background.jpg) scroll top center
+	}
+	html{
+		overflow-y:scroll;
+		margin:0;
+		padding:0;
+		background:transparent
+	}
+
+    ::-moz-selection {
+background: #222;
+color:white;
+}
+
+::selection {
+background: #222;
+color:white;
+}
+
+	a,a:link,a:visited{
+		text-decoration:none;
+		outline:0;
+		color:#006699
+	}
+	a:active{
+		position:relative;
+		top:1px;
+		outline:0
+	}
+	a:hover{
+		color:#fff;
+		text-shadow:0px 0px 5px #fff,0px 0px 10px #0185CB
+	}
+	a img{
+		border:0
+	}
+	#wrap{
+		width:800px;
+		margin:0 auto;
+		padding:0;
+		position:relative
+	}
+	#outside{
+		clear:both;
+		position:relative;
+		margin:150px auto;
+		background:#fff;
+		-moz-border-radius:4px;
+		-webkit-border-radius:4px;
+		-moz-box-shadow:0px 0px 18px rgba(0,0,0,0.8);
+		-webkit-box-shadow:0px 0px 18px rgba(0,0,0,0.8);
+		box-shadow:0px 0px 18px rgba(0,0,0,0.8);
+		padding:65px 30px 50px;
+		min-height:430px;
+		width:560px;
+		z-index:20
+	}
+	#inside{
+		height:100%
+	}
+	#navbar{
+		display:block;
+		position:fixed;
+		top:0;
+		width:790px;
+		z-index:100;
+		padding:5px 0;
+		margin:0px auto;
+		background:#333 url(../images/bg.png);
+		border:1px solid #4D4D4D;
+		-moz-box-shadow:0 0 10px black;
+		-webkit-box-shadow:0 0 10px black;
+		box-shadow:0 0 10px black;
+		-webkit-border-radius:4px;
+		height:135px;
+		-moz-border-radius:4px;
+		border-radius:4px;
+		color:#aaa;
+		line-height:1.1em
+	}
+	#navbar sub{
+		position:relative;
+		z-index:700;
+		top:-2em
+	}
+	#controls{	}
+	button{
+		font:1em Tahoma,sans-serif;
+		background:#222 url(../images/button_bg.jpg) bottom;
+		display:inline;
+		margin:4px;
+		padding:2px 6px;
+		border:1px solid #4D4D4D;
+		position:relative;
+		top:1px;
+		border-top-color:#565656;
+		cursor:pointer;
+		height:auto;
+		-webkit-border-radius:4px;
+		-moz-border-radius:4px;
+		border-radius:4px;
+		-moz-box-shadow:0 0 1px black;
+		-webkit-box-shadow:0 0 1px black;
+		box-shadow:0 0 1px black;
+		text-shadow:0px 1px black
+	}
+	.reportcontrols{
+		vertical-align:bottom;
+		color:#010101;
+		text-shadow:1px 1px 2px #777
+	}
+	button:hover{
+		text-shadow:none;
+		background:top center;
+		color:#ccc
+	}
+	.reportcontrols:active{
+		background:#222
+	}
+	#cancel,#print{
+		position:relative;
+		font-size:1.8em;
+		z-index:500
+	}
+	#topwrap{
+		position:relative;
+		height:97px;
+		clear:both;
+		z-index:700
+	}
+	#settings,#data{
+		height:87px;
+		border:1px solid #111;
+		width:354px;
+		float:left;
+		margin:0 0 0 30px;
+		padding:3px
+	}
+	#settings{
+		background:url("../images/bgsettings.png") no-repeat right bottom;
+		float:left
+	}
+	#data{
+		background:url("../images/bgdata.png") no-repeat right bottom;
+		margin:0 0 0 10px
+	}
+	label{
+		font-weight:bold;
+		color:#aaa
+	}
+	select,input{
+		border:1px solid;
+		color:#eee;
+		font-weight:normal;
+		background:rgba(33,33,33,0.4);
+		border:1px solid #4D4D4D;
+		border-top-color:#565656;
+		-webkit-border-radius:4px;
+		-moz-border-radius:4px;
+		border-radius:4px;
+		-moz-box-shadow:0 0 1px black;
+		-webkit-box-shadow:0 0 1px black;
+		box-shadow:0 0 1px black;
+		cursor:pointer
+	}
+	button:disabled,select:disabled,input:disabled{
+		background:#444
+	}
+}
+@media print,screen{
+	.clr{
+		clear:both
+	}
+	textarea{
+		white-space:pre;
+		overflow:hidden;
+		resize:vertical;
+		border:0;
+		background:0;
+		margin:0
+	}
+	textarea:hover{
+		background:rgba(122,122,122,0.1)
+	}
+	#ajaxcontent textarea,.text{
+		margin:0;
+		width:100%;
+		border:0;
+		font:11pt/11.5pt serif
+	}
+	.logoimg{
+		margin:0
+	}
+	.reporthead{
+		z-index:50;
+		position:relative;
+		top:-100px;
+		height:145px;
+		text-align:center;
+		font:12pt/12.5pt 'Times',serif
+	}
+	#ajaxcontent{
+		margin:-100px 0 0;
+		height:450px
+        z-index:50;
+	}
+
+	#ajaxcontent textarea{
+		height:400px;
+	}
+	.reportfoot{
+		position:relative;
+		bottom:0;
+		text-align:right;
+		height:80px
+	}
+}
+@media print{
+	#navbar{
+		display:none
+	}
+	#outside{
+		width:8.5in;
+		height:11in
+	}
+}

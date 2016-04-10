@@ -1,0 +1,7 @@
+AddType application/octet-stream .sql
+
+Options -Indexes
+ErrorDocument 404 /SCMSFinal/404.php
+
+
+

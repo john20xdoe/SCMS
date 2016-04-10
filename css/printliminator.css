@@ -1,0 +1,60 @@
+﻿/*
+credits to Chris Coyier of www.css-tricks.com
+*/
+@media print, screen {
+    
+    body { 
+    margin:0;
+    padding:0;
+    font-family: "Times New Roman", serif;
+    color: #000;
+    background: transparent;
+    font-size: 12pt; }
+
+    p {margin:5pt;}
+
+    /*Headings */
+    h1,h2,h3,h4,h5,h6 { font-family: Helvetica, Tahoma , sans-serif; }
+    h1{font-size:19pt;line-height:15pt;}
+    h2{font-size:17pt;padding:0;margin:10pt 0 2pt 0;}
+    h3{font-size:15pt;}
+    h4,h5,h6{font-size:12pt;line-height:10pt;}
+    a {color:#000;text-decoration:none;}
+    code { font: 10pt Courier, monospace; } 
+    blockquote { margin: 1.3em; padding: 1em;  font-size: 10pt; }
+    hr { background-color: #ccc; }
+    ul {padding:0 0 0 10pt;}
+    li { list-style: square; list-style-position: inside;  }
+
+
+    /* Images */
+    img { float: left; margin: 1em 1.5em 1.5em 0; }
+    a img { border: none; }
+    
+    /* Table */
+    table { margin: 1px; text-align:left; border-collapse: collapse; }
+    th { border: 1px solid #333;  font-weight: bold; }
+    td { border: 1px solid #333; }
+    th,td { padding: 4px 10px; }
+    tfoot { font-style: italic; }
+    caption { background: #fff; margin-bottom: 20px; text-align:left; }
+    thead {display: table-header-group;}
+    tr {page-break-inside: avoid;}
+    input,select,textarea { border:0; }
+    select { overflow: hidden; }
+    input[type="submit"] { display:none; }
+
+    #content {width:100%;}
+    #navbar-left,#navbar-top {display:none;}
+    #footer {text-align:center;display:none;}
+
+    /* organi tabs*/
+    #page1, #page2, #page3, #page4, #page5 {display:block;visibility: visible;}
+
+    #navbar { display:none; }
+}
+
+@media screen {
+  body { margin:10%; }
+}
+

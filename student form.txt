@@ -1,0 +1,114 @@
+echo "<fieldset><legend>+ Add a New Student</legend>";
+     echo "<p>To add a new record for a student, fill up the form below. Please remember to enter truthful information about real students, as mentioned in the <a href=\"terms.php\" target=\"_blank\">Terms of Use</a>.</p>";
+     echo "<br /><b>Basic Personal Information</b><br />";
+     echo '<form id="frmBasicInfo" action="save.php" method="post">';
+     echo '<br /><label for="studentid">Student\'s ID Code: </label><input id="studentid" name="studentid" type="text" maxlength="8" size="10" />';
+     echo '<br /><label for="firstName">First Name:&nbsp;</label><input class="name" type="text" id="firstName" size="15" name="firstName" value="" />';
+     echo '&nbsp;&nbsp;&nbsp;&nbsp;<label for="middleName">Middle Name:&nbsp;</label><input class="name" type="text" size="12" id="middleName" name="middleName" value="" />';
+     echo '&nbsp;&nbsp;&nbsp;&nbsp;<label for="lastName">Last Name:&nbsp;</label><input class="name" type="text" size="19" id="lastName" name="lastName" value="" />';
+     echo '<br /><label for="gender">Gender: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label><select name="gender" id="gender"><option value="m">Male</option><option value="f">Female</option></select>';
+     echo '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<label for="civilstatus">Civil Status: </label><select name="civilstatus" id="civilstatus">';
+     echo '<option name="single">Single</option><option name="married">Married</option><option name="divorced">Divorced</option><option name="widowed">Widowed</option></select>';
+     echo '<br /><label for="nationality">Nationality: </label><input type="text" size="6" name="nationality" id="nationality" value="Filipino" />';
+     echo '&nbsp;&nbsp;&nbsp;&nbsp;<label for="religion">Religion: </label><input size="20" type="text" name="religion" id="religion" value="" />';
+
+
+     echo '<br /><label for="year">Date of Birth: </label>';
+       $nowArray = getdate();
+       $day = 31;
+       $mon = 12;
+       $year = $nowArray["year"] - 10;
+       $ctr = 1982;    //build year
+       echo '<label for="year">(Year) </label><select name="year" id="year">';
+        while ($year >= $ctr){
+          echo '<option value="'.$year.'">'.$year.'</option>';
+          $year -= 1;
+        }
+       echo '</select>';
+
+       $ctr = 1; //build month
+       echo '&nbsp;<label for="month">(Month) </label><select name="month" id="month">';
+        while ($ctr <= $mon){
+          echo '<option value="'.$ctr.'">'.$ctr.'</option>';
+          $ctr += 1;
+        }
+       echo '</select>';
+
+       $ctr = 1; //build days
+       echo '&nbsp;<label for="day">(Day) </label><select name="day" id="day">';
+        while ($day >= $ctr){
+          echo '<option value="'.$ctr.'">'.$ctr.'</option>';
+          $ctr += 1;
+        }
+       echo '</select>';
+
+
+      echo '<br /><label for="placeOfBirth">Place of Birth: </label><input type="text" name="placeofbirth" id="placeofbirth" size="85" maxlength="80" value="" />';
+
+      echo '<br /><br /><br /><b>Contact Information</b><br />';
+       echo '<br /><label for="address">Home Address: </label><input type="text" name="address" id="address" size="75" maxlength="70" value="" />';
+       echo '<br /><label for="contactno">Student\'s Contact Number: </label><input type="text" name="contactno" id="contactno" size="20" maxlength="15" value="" />';
+       echo '<br /><label for="parentguardian">In case of emergency, contact this person: </label><input class="name" type="text" name="parentguardian" id="parentguardian" size="48" maxlength="70" value="" />';
+       echo '<br /><label for="contactno">Emergency Phone Number: </label><input type="text" name="emergencycontactno" id="emergencycontactno" size="20" maxlength="15" value="" />';
+
+    echo '<br /><br /><br /><b>Education Information</b><br />';
+    echo '<br /><label for="highschool">High School Name: (last attended) </label><input type="text" name="highschool" id="highschool" size="50" maxlength="80" value="" />';
+    echo '<br /><label for="highschoolgpa">High School Grade Point Average (GPA): </label><input type="text" name="highschoolgpa" id="highschoolgpa" size="5" maxlength="5" value="" />';
+
+    //populate courses
+    echo '<br /><label for="course">Course (Course program): </label>';
+    $db = dbconnect(1);
+     if ($db == -1){
+           printf("Connect failed: %s\n\n", mysqli_connect_error());
+           exit();
+     }
+       $query = "SELECT * FROM Course";
+        if ($result = mysqli_query($db, $query)) {
+           /* fetch associative array */
+           echo "<select name=\course\ id=\"course\">";
+          while ($row = mysqli_fetch_row($result)) {
+            printf("<option value=\"%d\">%s - (%s)</option>",$row[0],$row[1],$row[2]);
+            }
+            echo "</select>";
+            mysqli_free_result($result);
+            dbconnect(0);
+        } else {echo "No saved courses yet.";
+          $_SESSION['msg'] = 'Your MySQL server is not responding.';}
+
+     echo '<br /><label for="sectionyearlvl">Year Level (also used as section): </label><select name="sectionyearlvl" id="sectionyearlvl">';
+     echo '<option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option></select>';
+
+    //populate enrolment classification
+    echo '&nbsp;&nbsp;&nbsp;&nbsp;<label for="enrolleeclassif">Enrolled as: </label>';
+    echo "<select name=\enrolleeclassif\ id=\"enrolleeclassif\">";
+    echo '<option value="regular">regular</option><option value="irregular">irregular</option><option value="transferee">transferee</option>';
+    echo "</select>";
+
+     //populate curriculums
+     echo '<br /><label for="curriculum">Enrolled under curriculum: </label>';
+     $db = dbconnect(1);
+     if ($db == -1){
+           printf("Connect failed: %s\n\n", mysqli_connect_error());
+           exit();
+     }
+       $query = "SELECT Curriculum.*,Course.courseInitials FROM Curriculum JOIN Course where isReady = 1 AND Curriculum.course = Course.courseID";
+        if ($result = mysqli_query($db, $query)) {
+           /* fetch associative array */
+           echo "<select name=\curriculum\ id=\"curriculum\">";
+            while ($row = mysqli_fetch_row($result)) {
+            //add select for course
+            printf("<option value=\"%d\">%s Curriculum Effective Year %d - %s Sem </option>",$row[0],$row[6],$row[1],conv2text($row[2]));
+            }
+            echo "</select>";
+            mysqli_free_result($result);
+            dbconnect(0);
+
+        } else { echo "No saved curriculums yet.";
+          $_SESSION['msg'] = 'Your MySQL server is not responding.';}
+
+     echo '<br /><label for="scholarship">Scholarship Grant (if any): <label><input type="text" maxlength="60" name="scholarship" id="scholarship" value="" />';
+     echo '<br /><label for="isstillactive">This student is active. </label><input type="checkbox" checked="checked" name="isstillactive" id="isstillactive" />';
+     echo '<input type="hidden" name="what" id="what" value="stud" />';
+     echo '<br /><br /><input type="submit" value="Register new student" />';
+     echo "</form>";
+     echo "</fieldset>";
