@@ -9,7 +9,7 @@ function dbconnect($status){
     //value passed is 1, meaning connect to db
     if ($status) {
       //connecting, procedural style
-      $dblink = mysqli_connect($dbsettings['scmsDbHost'],$dbsettings['scmsDbUser'], $dbsettings['scmsDbPassword'],'scmsdb');
+      $dblink = mysqli_connect($dbsettings['scmsDbHost'],$dbsettings['scmsDbUser'], $dbsettings['scmsDbPassword'], $dbsettings['scmsDb']);
 
       // check connection
       if (!$dblink) {return -1;} //error
@@ -69,10 +69,11 @@ function showDBLogin($settings,$isFirstTime){
 
       // clear dbsettings because cannot connect
     $dbsettings = array(
-            "scmsDbHost" => "",
-            "scmsDbUser" => "",
-            "scmsDbPassword" => ""
-            );
+      "scmsDbHost" => "",
+      "scmsDbUser" => "",
+      "scmsDbPassword" => "",
+      "scmsDb" => ""
+    );
 
     // Now save it to disk, create the 'full' file wrapping it in valid PHP
     $file = "<?php\n\$dbsettings = " . var_export($dbsettings, true) . ";\n?>\n";

@@ -13,10 +13,11 @@
 if (count($_POST)) {
     // Just update/add the value to the 'data' array
     $dbsettings = array(
-            "scmsDbHost" => $_POST["dbhost"],
-            "scmsDbUser" => $_POST["dbusername"],
-            "scmsDbPassword" => $_POST["dbpassword"]
-            );
+    "scmsDbHost" => $_POST["dbhost"],
+    "scmsDbUser" => $_POST["dbusername"],
+    "scmsDbPassword" => $_POST["dbpassword"],
+    "scmsDb" => $_POST["db"],
+    );
 
 
     // Now save it to disk, create the 'full' file wrapping it in valid PHP
@@ -46,29 +47,26 @@ echo '
 <input type="text" name="dbusername" value="'.$dbsettings['scmsDbUser'].'"></input></p>
 <p><strong>MySQL password</strong><br/>
 <input type="password" name="dbpassword" value="'.$dbsettings['scmsDbPassword'].'"></input></p>
+<p><strong>MySQL db name</strong><br/>
+<input type="text" name="db" value="'.$dbsettings['scmsDb'].'"></input></p>
 <p><input type="submit" value="Save"/></p>
 </form>
 ';
 
 // Open the database connection
-    if (!($db = mysqli_connect($dbsettings['scmsDbHost'], $dbsettings['scmsDbUser'], $dbsettings['scmsDbPassword']))) {
+if (!($db = mysqli_connect($dbsettings['scmsDbHost'], $dbsettings['scmsDbUser'], $dbsettings['scmsDbPassword']))) {
      // Handle errors
     die('SQL ERROR: Connection failed: Can\'t create the SCMS database. Check your MySQL database server or <a href="common/config.php">access settings</a>.' . mysqli_connect_error());
 } else {
 //arrays to hold mysql commands to build database.
 /////////////////////Create Database and Tables.//////////////////////////////////////////
   //-------------remove this on production------------------------//
-if  (mysqli_select_db($db,'scmsDb')){
-   exit();
-}
-else {
-}
-  //     $mysqlCmd[] = "drop database if exists scmsdb";           //
-//--------------------------------------------------------------//
+if  (mysqli_select_db($db,$dbsettings['scmsDb'])){
 
 
-$mysqlCmd[] = "create database scmsDB default character set latin7 collate latin7_general_cs";
-$mysqlCmd[] = "use scmsDB";
+
+// $mysqlCmd[] = "create database "+$dbsettings['scmsDb']+" default character set latin7 collate latin7_general_cs";
+// $mysqlCmd[] = "use "+$dbsettings['scmsDb']+";
 $mysqlCmd[] = "create table Subjects(subjectCode varchar(25) not null primary key,descTitle varchar(50) not null, units mediumint(20) unsigned not null, withLab bool not null) engine = InnoDB character set latin7 collate latin7_general_cs";
 $mysqlCmd[] = "create table Course(courseID int(10) unsigned not null auto_increment primary key,courseInitials varchar(15) not null, courseName varchar(60) not null, courseDesc varchar(280) null) engine = InnoDB character set latin7 collate latin7_general_cs";
 $mysqlCmd[] = "create table UserType(userTypeID int(10) unsigned not null auto_increment primary key, userTypeDesc varchar(40) not null) engine = InnoDB character set latin7 collate latin7_general_cs";
@@ -145,18 +143,20 @@ echo "<div id=\"output\">$s queries to execute: starting<br/>";
 //load create queries to My SQl server one-by-one
     foreach ($mysqlCmd as $c) {
       if (!$result= mysqli_query($db,$c)){
-            //save what error to $err
-            $err = mysqli_error($db);
-            die("<pre style='background:yellow;'>$c\n</pre><br/>$err<br/><pre style='background:#ddd;'>\nSetup has been stopped. Please try again from the beginning.</pre>");
-       } else {
-         echo "<pre style='color:darkgreen;'>$c\n</pre>";
-       };
+        //save what error to $err
+        $err = mysqli_error($db);
+        die("<pre style='background:yellow;'>$c\n</pre><br/>$err<br/><pre style='background:#ddd;'>\nSetup has been stopped. Please try again from the beginning.</pre>");
+      } else {
+        echo "<pre style='color:darkgreen;'>$c\n</pre>";
+      };
     }
 echo "</div>";
 //clean the array
 unset($mysqlCmd);
 //end connection
    mysqli_close($db);
+} else {
+  die('SQL ERROR: Connection failed: Database ' + $dbsettings['scmsDb'] + ' does not exist. or <a href="common/config.php">access settings</a>.' . mysqli_connect_error());
 }
 ?>
 

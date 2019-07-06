@@ -14,7 +14,8 @@ if (count($_POST)) {
     $dbsettings = array(
             "scmsDbHost" => $_POST["dbhost"],
             "scmsDbUser" => $_POST["dbusername"],
-            "scmsDbPassword" => $_POST["dbpassword"]
+            "scmsDbPassword" => $_POST["dbpassword"],
+            "scmsDb" => $_POST["db"]
             );
 
     // Now save it to disk, create the 'full' file wrapping it in valid PHP
@@ -23,7 +24,7 @@ if (count($_POST)) {
 }
 
 echo '<fieldset><legend>MySQL Server Connection Settings</legend>';
-$mysqli = new mysqli($dbsettings['scmsDbHost'], $dbsettings['scmsDbUser'], $dbsettings['scmsDbPassword']);
+$mysqli = new mysqli($dbsettings['scmsDbHost'], $dbsettings['scmsDbUser'], $dbsettings['scmsDbPassword'],$dbsettings['scmsDb']);
 
  if (!mysqli_connect_errno()) {
     printf("<p class=\"calloutinfo\">Connected! The following MySQL login info works okay. <br/>Host information: %s\n</p>", mysqli_get_host_info($mysqli));
@@ -37,6 +38,8 @@ echo '
 <label for="dbhost">MySQL hostname: </label><input type="text" id="dbhost" name="dbhost" value="'.$dbsettings['scmsDbHost'].'"> This is the MySQL server hosting your SCMS database.<br />
 <label for="dbusername">MySQL username: </label><input type="text" id="dbusername" name="dbusername" value="'.$dbsettings['scmsDbUser'].'"></input> This is the MySQL username for SCMS to said server.<br />
 <label for="dbpassword">MySQL password: </label><input type="password" id="dbpassword" name="dbpassword" value="'.$dbsettings['scmsDbPassword'].'"> This is the password for the said MySQL username.</input>
+<label for="db">MySQL db name: </label>
+<input type="text" id="db" name="db" value="'.$dbsettings['scmsDb'].'"> This is the database name provisioned.</input>
 <br />
 <input type="submit" value="Save changes"/>
 </form></fieldset>

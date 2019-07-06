@@ -5,10 +5,11 @@
 if (count($_POST)) {
     // Just update/add the value to the 'data' array
     $dbsettings = array(
-            "scmsDbHost" => $_POST["dbhost"],
-            "scmsDbUser" => $_POST["dbusername"],
-            "scmsDbPassword" => $_POST["dbpassword"]
-            );
+      "scmsDbHost" => $_POST["dbhost"],
+      "scmsDbUser" => $_POST["dbusername"],
+      "scmsDbPassword" => $_POST["dbpassword"],
+      "scmsDb" => $_POST["db"],
+      );
 
 
     // Now save it to disk, create the 'full' file wrapping it in valid PHP
@@ -16,7 +17,7 @@ if (count($_POST)) {
     file_put_contents('lib/config.php', $file, LOCK_EX);
 }
 
-$mysqli = new mysqli($dbsettings['scmsDbHost'], $dbsettings['scmsDbUser'], $dbsettings['scmsDbPassword'],'scmsDB');
+$mysqli = new mysqli($dbsettings['scmsDbHost'], $dbsettings['scmsDbUser'], $dbsettings['scmsDbPassword'], $dbsettings['scmsDB']);
  if (!mysqli_connect_errno()) {
     printf("<p class=\"calloutinfo\">Connected <br/>Host information: %s\n</p>", mysqli_get_host_info($mysqli));
     echo "<button onclick=\"function(){\$('.popup').fadeOut().hide();}\">OK</button><br /><br />";

@@ -14,7 +14,8 @@ if (count($_POST)) {
     $dbsettings = array(
             "scmsDbHost" => $_POST["dbhost"],
             "scmsDbUser" => $_POST["dbusername"],
-            "scmsDbPassword" => $_POST["dbpassword"]
+            "scmsDbPassword" => $_POST["dbpassword"],
+            "scmsDb" => $_POST["db"]
             );
 
 

@@ -5,5 +5,6 @@ $dbsettings = array (
   'scmsDbHost' => 'localhost',
   'scmsDbUser' => 'root',
   'scmsDbPassword' => '',
+  'scmsDb' => 'scmsDB',
 );
 ?>

@@ -1,9 +1,11 @@
 ﻿--To the Database Administrator,
 --please paste these code into the MySQL Console or phpMyAdmin
 
-
+-- skip create database if already provisioned
 create database scmsDB default character set latin7 collate latin7_general_cs;
 use scmsDB;
+
+
 create table Subjects(subjectCode varchar(25) not null primary key,descTitle varchar(50) not null, units mediumint(20) unsigned not null, withLab bool not null) engine = InnoDB character set latin7 collate latin7_general_cs;
 create table Course(courseID int(10) unsigned not null auto_increment primary key,courseInitials varchar(15) not null, courseName varchar(60) not null, courseDesc varchar(280) null) engine = InnoDB character set latin7 collate latin7_general_cs;
 create table UserType(userTypeID int(10) unsigned not null auto_increment primary key, userTypeDesc varchar(40) not null) engine = InnoDB character set latin7 collate latin7_general_cs;
