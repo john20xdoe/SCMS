@@ -9,7 +9,7 @@ function dbconnect($status){
     //value passed is 1, meaning connect to db
     if ($status) {
       //connecting, procedural style
-      $dblink = mysqli_connect($dbsettings['scmsDbHost'],$dbsettings['scmsDbUser'], $dbsettings['scmsDbPassword'], $dbsettings['scmsDb']);
+      $dblink = mysqli_connect($dbsettings['scmsDbHost'],$dbsettings['scmsDbUser'], $dbsettings['scmsDbPassword']);
 
       // check connection
       if (!$dblink) {return -1;} //error
