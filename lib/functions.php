@@ -53,6 +53,8 @@ function showDBLogin($settings,$isFirstTime){
     <input maxlength="50" type="text" name="dbusername" value=""></input></p>
     <p><strong>MySQL password</strong><br/>
     <input type="password" name="dbpassword" value=""></input></p>
+    <p><strong>MySQL db name (if provisioned)</strong><br/>
+    <input type="text" name="db" value=""></input></p>
     <p><input type="submit" value="Save"/></p> <br /><br />
         <a href="help.php">Help</a>
     </form>
@@ -89,6 +91,8 @@ function showDBLogin($settings,$isFirstTime){
     <input type="text" maxlength="50" name="dbusername" value="'.$dbsettings['scmsDbUser'].'"></input></p>
     <p><strong>MySQL password</strong><br/>
     <input type="password" name="dbpassword" value="'.$dbsettings['scmsDbPassword'].'"></input></p>
+    <p><strong>MySQL db name (if provisioned)</strong><br/>
+    <input type="text" name="db" value="'.$dbsettings['scmsDb'].'"></input></p>
     <p><input type="submit" value="Save"/></p> <br /><br />
     <a href="help.php">Help</a>
     </form>';
